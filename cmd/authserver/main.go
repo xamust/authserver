@@ -5,6 +5,10 @@ import (
 	"github.com/xamust/authserver/internal/config"
 	"github.com/xamust/authserver/internal/xlogger"
 	"log/slog"
+	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
 )
 
 func main() {
@@ -17,16 +21,25 @@ func main() {
 	// todo: init app
 
 	// todo: storage....
-	authApp := app.New(log, cfg.GRPCConfig.Port, cfg.GRPCConfig.Gateway, cfg.TokenTTL)
+	authApp := app.New(log, cfg.GRPCConfig, cfg.TokenTTL)
 
+	// todo: run gRPC
 	go func() {
 		if err := authApp.GRPCSrv.Run(); err != nil {
 			panic(err)
 		}
 	}()
 
-	if err := authApp.HTTPSrv.Run(); err != nil {
-		panic(err)
-	}
-	// todo: run gRPC
+	go func() {
+		if err := authApp.HTTPSrv.Run(); err != nil && err != http.ErrServerClosed {
+			panic(err)
+		}
+	}()
+	stop := make(chan os.Signal, 1)
+	signal.Notify(stop, os.Interrupt, syscall.SIGTERM, syscall.SIGINT)
+	sign := <-stop
+	log.Info("stopping authServer", slog.String("signal", sign.String()))
+	authApp.HTTPSrv.Stop()
+	authApp.GRPCSrv.Stop()
+	log.Info("authServer stopped")
 }

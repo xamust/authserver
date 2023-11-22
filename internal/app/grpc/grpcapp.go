@@ -29,10 +29,10 @@ func (a *App) Run() error {
 	if err != nil {
 		return fmt.Errorf("starting gRPCServer on port:%d, %w", a.port, err)
 	}
+	a.log.With("port", a.port).With("address", l.Addr().String()).Info("gRPCServer started")
 	if err := a.gRPCServer.Serve(l); err != nil {
 		return fmt.Errorf("starting gRPCServer on port:%d, %w", a.port, err)
 	}
-	a.log.With("port", a.port).With("address", l.Addr().String()).Info("gRPCServer started")
 	return nil
 }
 

@@ -15,7 +15,8 @@ func Register(gRPC *grpc.Server) {
 }
 
 func (s *serverAPI) Login(ctx context.Context, lr *authServerv1.LoginRequest) (*authServerv1.LoginResponse, error) {
-	panic("not implemented")
+
+	return &authServerv1.LoginResponse{Token: "token for " + lr.Email}, nil
 }
 
 func (s *serverAPI) Register(ctx context.Context, rr *authServerv1.RegisterRequest) (*authServerv1.RegisterResponse, error) {

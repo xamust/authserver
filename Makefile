@@ -21,7 +21,6 @@ protoserver:
 	--go-grpc_out=./pkg/authserver/v1 \
 	--grpc-gateway_out=logtostderr=true:./pkg/authserver/v1 \
 	--openapiv2_opt json_names_for_fields=false \
-	--openapiv2_opt generate_unbound_methods=true \
 	--openapiv2_opt allow_merge=true \
 	--openapiv2_opt merge_file_name=v1/api \
 	--openapiv2_out=logtostderr=true:./pkg/authserver \
