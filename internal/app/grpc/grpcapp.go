@@ -3,18 +3,18 @@ package grpcapp
 import (
 	"fmt"
 	authgrpcserver "github.com/xamust/authserver/internal/grpc/auth"
+	"github.com/xamust/authserver/internal/xlogger"
 	"google.golang.org/grpc"
-	"log/slog"
 	"net"
 )
 
 type App struct {
-	log        *slog.Logger
+	log        *xlogger.XLogger
 	gRPCServer *grpc.Server
 	port       int
 }
 
-func New(log *slog.Logger, port int) *App {
+func New(log *xlogger.XLogger, port int) *App {
 	gRPCServer := grpc.NewServer()
 	authgrpcserver.Register(gRPCServer)
 	return &App{
@@ -37,6 +37,6 @@ func (a *App) Run() error {
 }
 
 func (a *App) Stop() {
-	a.log.With("port", a.port).Info("gRPCServer started")
 	a.gRPCServer.GracefulStop()
+	a.log.With("port", a.port).Info("gRPCServer stopped")
 }

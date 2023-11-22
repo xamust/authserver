@@ -1,12 +1,27 @@
 syntax = "proto3";
 
+// todo: вероятно вынести в отдельный проект
+// для удобства подключения в дальнейшем
+
 package xamust.authserver.api.v1;
+
+import "google/api/annotations.proto";
 
 option go_package = "./;authserver";
 
 service Auth {
-  rpc Register(RegisterRequest) returns (RegisterResponse);
-  rpc Login(LoginRequest) returns (LoginResponse);
+  rpc Register(RegisterRequest) returns (RegisterResponse) {
+    option (google.api.http) = {
+      post: "/auth/register",
+      body: "*",
+    };
+  };
+  rpc Login(LoginRequest) returns (LoginResponse) {
+    option (google.api.http) = {
+      post: "/auth/login",
+      body: "*",
+    };
+  };
 }
 
 message RegisterRequest {

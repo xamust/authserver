@@ -1,5 +1,4 @@
 host: ""
-port: 8080
 token_ttl: 10m
 logEnv: local
 loglevel: debug

@@ -33,6 +33,9 @@ go.work
 /docker-compose.*
 !/docker-compose.yml.dist
 
+/config/config.*
+!/config/config.default.yaml
+
 pkg/authserver/v1/*.pb.go
 pkg/authserver/v1/*.pb.gw.go
 pkg/authserver/v1/*.swagger.json

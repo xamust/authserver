@@ -13,7 +13,6 @@ const (
 
 type Config struct {
 	Host           string         `yaml:"host" default:"localhost"`
-	Port           int            `yaml:"port" default:"8080"`
 	TokenTTL       time.Duration  `yaml:"token_ttl" required:"true"`
 	LogLevel       slog.Level     `yaml:"loglevel" default:"debug"`
 	LogEnv         xlogger.LogEnv `yaml:"logEnv" env_required:"true"`
