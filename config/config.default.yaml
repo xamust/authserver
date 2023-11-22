@@ -1,0 +1,15 @@
+host: ""
+port: 8080
+token_ttl: 10m
+logEnv: local
+loglevel: debug
+grpc:
+  host: ""
+  port: 8081
+  gateway_port: 8082
+database:
+  host: ""
+  port: 5432
+  db_name: ""
+  user: ""
+  password: ""
