@@ -3,6 +3,7 @@ package auth
 import (
 	"context"
 	authServerv1 "github.com/xamust/authserver/pkg/authserver/v1"
+	"github.com/xamust/xvalidator"
 	"google.golang.org/grpc"
 )
 
@@ -15,7 +16,9 @@ func Register(gRPC *grpc.Server) {
 }
 
 func (s *serverAPI) Login(ctx context.Context, lr *authServerv1.LoginRequest) (*authServerv1.LoginResponse, error) {
-
+	if err := xvalidator.NewXValidator().ValidateVar(lr.Email, "email"); err != nil {
+		return nil, ValidationError("email", err)
+	}
 	return &authServerv1.LoginResponse{Token: "token for " + lr.Email}, nil
 }
 
