@@ -10,9 +10,11 @@ import (
 	"github.com/xamust/authserver/internal/config"
 	"github.com/xamust/authserver/internal/xlogger"
 	"github.com/xamust/authserver/pkg/authserver/v1"
+	"github.com/xamust/authserver/www"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/protobuf/encoding/protojson"
+	"html/template"
 	"io/fs"
 	"net/http"
 	"time"
@@ -76,7 +78,12 @@ func (a *App) Run() error {
 			"/api.swagger.json",
 		}
 	}))
-	a.echoServer.GET("/", health)
+	a.echoServer.GET("/health", health)
+
+	a.echoServer.Any("/site/index.html", index)
+	a.echoServer.GET("/style/*", style)
+	a.echoServer.GET("/scripts/*", scripts)
+
 	a.echoServer.Any("/*", echo.WrapHandler(gw))
 	a.echoServer.Any("/api.swagger.json", echo.StaticFileHandler("api.swagger.json", fs.FS(authserver.SwaggerJsonApi)))
 
@@ -96,4 +103,32 @@ func (a *App) Stop() {
 
 func health(c echo.Context) error {
 	return c.String(http.StatusOK, "OK")
+}
+
+func index(c echo.Context) error {
+	tmpl, err := template.ParseFS(fs.FS(www.HTML), "html/*")
+	if err != nil {
+		return err
+	}
+	h := "http://localhost:8082"
+	//if err := tmpl.Execute(c.Response().Writer, h); err != nil {
+	//	return err
+	//}
+	return tmpl.Execute(c.Response().Writer, h)
+}
+
+func style(c echo.Context) error {
+	tmpl, err := template.ParseFS(fs.FS(www.Style), "styles/*")
+	if err != nil {
+		return err
+	}
+	return tmpl.Execute(c.Response().Writer, nil)
+}
+
+func scripts(c echo.Context) error {
+	tmpl, err := template.ParseFS(fs.FS(www.Scripts), "scripts/*")
+	if err != nil {
+		return err
+	}
+	return tmpl.Execute(c.Response().Writer, nil)
 }

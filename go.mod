@@ -7,7 +7,7 @@ require (
 	github.com/ilyakaznacheev/cleanenv v1.5.0
 	github.com/labstack/echo/v4 v4.11.3
 	github.com/swaggo/echo-swagger v1.4.1
-	github.com/xamust/xvalidator v0.0.0-20231123072617-ed68d8266261
+	github.com/xamust/xvalidator v0.0.0-20231123083715-2d2e3b731317
 	google.golang.org/genproto/googleapis/api v0.0.0-20231106174013-bbf56f31fb17
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20231106174013-bbf56f31fb17
 	google.golang.org/grpc v1.59.0

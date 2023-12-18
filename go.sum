@@ -100,8 +100,8 @@ github.com/valyala/bytebufferpool v1.0.0/go.mod h1:6bBcMArwyJ5K/AmCkWv1jt77kVWyC
 github.com/valyala/fasttemplate v1.2.1/go.mod h1:KHLXt3tVN2HBp8eijSv/kGJopbvo7S+qRAEEKiv+SiQ=
 github.com/valyala/fasttemplate v1.2.2 h1:lxLXG0uE3Qnshl9QyaK6XJxMXlQZELvChBOCmQD0Loo=
 github.com/valyala/fasttemplate v1.2.2/go.mod h1:KHLXt3tVN2HBp8eijSv/kGJopbvo7S+qRAEEKiv+SiQ=
-github.com/xamust/xvalidator v0.0.0-20231123072617-ed68d8266261 h1:XObOx+HCe81JYBZCNpcKmN0BHv3JZ/DliW/aUDjkgh4=
-github.com/xamust/xvalidator v0.0.0-20231123072617-ed68d8266261/go.mod h1:nd3V0RIGLOPWywzAcwBl9KolhKBgHKxil++XPZR2rFo=
+github.com/xamust/xvalidator v0.0.0-20231123083715-2d2e3b731317 h1:E4iweUiUQP+WzU56AQIUgK7dvVlHQqca135xPjt32EA=
+github.com/xamust/xvalidator v0.0.0-20231123083715-2d2e3b731317/go.mod h1:nd3V0RIGLOPWywzAcwBl9KolhKBgHKxil++XPZR2rFo=
 golang.org/x/crypto v0.15.0 h1:frVn1TEaCEaZcn3Tmd7Y2b5KKPaZ+I32Q2OA3kYp5TA=
 golang.org/x/crypto v0.15.0/go.mod h1:4ChreQoLWfG3xLDer1WdlH5NdlQ3+mwnQq1YTKY+72g=
 golang.org/x/mod v0.9.0 h1:KENHtAZL2y3NLMYZeHY9DW8HW8V+kQyJsY/V9JlKvCs=
