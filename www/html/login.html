@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All in one 1.0.0</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+  <link rel="stylesheet" type="text/css" href="../style/style.css">
+</head>
+<body>
+  <header>
+    <h1>All in one</h1>
+    <span>1.0.0</span>
+  </header>
+  <div class="container">
+    <form id="loginForm">
+      <input type="text" id="loginUsername" name="loginUsername" placeholder="Имя пользователя" required>
+      <input type="password" id="loginPassword" name="loginPassword" placeholder="Пароль" required>
+      <p id="forgotPassword" onclick="forgotPassword()">Восстановить пароль</p>
+      <button type="button" onclick="login()">Войти</button>
+    </form>
+    <button id="regButton" type="button" onclick="openRegisterForm()">Создать аккаунт</button>
+    <form id="registerForm" style="display: none;">
+      <input type="text" id="registerUsername" name="registerUsername" placeholder="Имя пользователя" required>
+      <input type="password" id="registerPassword" name="registerPassword" placeholder="Пароль" required>
+      <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Подтвердите пароль" required>
+      <p id="returnToLogin" onclick="returnToLogin()">Вернуться к форме входа</p>
+      <button type="button" onclick="register()">Зарегистрироваться</button>
+    </form>
+    <form id="restorePassword" style="display: none;">
+      <input type="text" id="userEmail" name="userEmail" placeholder="Введите email" required>
+      <p id="returnToLoginFromRestore" onclick="returnToLogin()">Вернуться к форме входа</p>
+      <button type="button" onclick="resetPassword()">Сбросить пароль</button>
+    </form>
+  </div>
+  <div id="response">
+<!--  todo:  need set correct err position-->
+  </div>
+  <script src="../scripts/script.js"></script>
+</body>
+</html>

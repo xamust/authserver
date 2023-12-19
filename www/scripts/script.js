@@ -1,8 +1,8 @@
 function login() {
+    clearErrors()
     var email = document.getElementById('loginUsername').value;
     var password = document.getElementById('loginPassword').value;
     // Добавьте код для отправки данных на сервер для проверки логина и пароля
-    // Используйте Fetch API для отправки запроса к серверу
     const credentials = {
         email: email,
         password: password,
@@ -18,21 +18,18 @@ function login() {
         .then(response => response.json())
         .then(data => {
             // Обработка полученных данных
-            var resp = data.message
-
-            // Object.keys(data.details).forEach(prop => {
-            //    resp += " " + data.details[prop]
-            // })
-            for ( item in data.details ) {
-                resp += " " + item;
+            if (data.code !== 0) {
+                showError('response',data);
+                return false;
             }
-            document.getElementById('response').innerText = resp;aaaBB
+            document.getElementById('response').innerText = data.message;
         })
         .catch(error => console.error('Error:', error));
     console.log('Login:', username, 'Password:', password);
 }
 
 function register() {
+    clearErrors()
     var username = document.getElementById('registerUsername').value;
     var password = document.getElementById('registerPassword').value;
     var confirmPassword = document.getElementById('confirmPassword').value;
@@ -54,6 +51,7 @@ function resetPassword() {
 }
 
 function openRegisterForm() {
+    clearErrors()
     document.getElementById('forgotPassword').style.display = 'none';
     document.getElementById('returnToLogin').style.display = 'flex';
     document.getElementById('registerForm').style.display = 'flex';
@@ -64,6 +62,7 @@ function openRegisterForm() {
 }
 
 function returnToLogin() {
+    clearErrors()
     document.getElementById('forgotPassword').style.display = 'block';
     document.getElementById('returnToLogin').style.display = 'none';
     document.getElementById('registerForm').style.display = 'none';
@@ -74,6 +73,7 @@ function returnToLogin() {
 }
 
 function forgotPassword() {
+    clearErrors();
     // Добавьте код для восстановления пароля
     document.getElementById('restorePassword').style.display = 'flex';
     document.getElementById('loginForm').style.display = 'none';
@@ -91,3 +91,27 @@ document.getElementById('registerPassword').addEventListener('input', function()
     var returnToLoginReg = document.getElementById('returnToLoginReg');
     returnToLoginReg.style.display = this.value ? 'block' : 'none';
 });
+
+// функция сообщения об ошибке
+function showError(field, data) {
+    clearErrors();
+    const errData = JSON.stringify(data.details[0]);
+    const parsedData = JSON.parse(errData);
+    var errorSpan = document.createElement("span");
+    var errorMessage = document.createTextNode(parsedData.field + " " + parsedData.description);
+
+    errorSpan.appendChild(errorMessage);
+    errorSpan.className = "errorMsg";
+    //
+    // var fieldLabel = document.getElementById('container');
+    // while (fieldLabel.nodeName.toLowerCase() !== "label") {
+    //     fieldLabel = fieldLabel.previousSibling;
+    // }
+    // fieldLabel.appendChild(errorSpan);
+    document.getElementById(field).appendChild(errorSpan)
+}
+
+function clearErrors() {
+    var errorContainer = document.getElementById('response');
+    errorContainer.innerHTML = ''; // или errorContainer.textContent = '';
+}

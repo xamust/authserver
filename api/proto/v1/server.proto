@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-// todo: вероятно вынести в отдельный проект
+// todo: вероятно вынести в отдельный проек
 // для удобства подключения в дальнейшем
 
 package xamust.authserver.api.v1;
@@ -24,6 +24,14 @@ service Auth {
   };
 }
 
+service Configuration {
+  rpc GetConfig(GetConfigRequest) returns (GetConfigResponse) {
+    option (google.api.http) = {
+      post: "/user/config",
+    };
+  }
+}
+
 message RegisterRequest {
   string email= 1;
   string password = 2;
@@ -41,4 +49,12 @@ message LoginRequest {
 
 message LoginResponse {
   string token = 1;
+}
+
+message GetConfigRequest {
+  string input = 1;
+}
+
+message GetConfigResponse {
+  string result = 1;
 }

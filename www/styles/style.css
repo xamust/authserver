@@ -83,3 +83,8 @@ button:hover {
     color: #4267B2;
     font-size: 14px;
 }
+
+.errorMsg {
+    color: red;
+    font-size: 14px;
+}

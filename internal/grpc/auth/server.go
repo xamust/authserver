@@ -9,10 +9,12 @@ import (
 
 type serverAPI struct {
 	authServerv1.UnimplementedAuthServer
+	authServerv1.UnimplementedConfigurationServer
 }
 
 func Register(gRPC *grpc.Server) {
 	authServerv1.RegisterAuthServer(gRPC, &serverAPI{})
+	authServerv1.RegisterConfigurationServer(gRPC, &serverAPI{})
 }
 
 func (s *serverAPI) Login(ctx context.Context, lr *authServerv1.LoginRequest) (*authServerv1.LoginResponse, error) {
@@ -21,6 +23,10 @@ func (s *serverAPI) Login(ctx context.Context, lr *authServerv1.LoginRequest) (*
 		return nil, err
 	}
 	return &authServerv1.LoginResponse{Token: "token for " + lr.Email}, nil
+}
+
+func (s *serverAPI) Register(ctx context.Context, rr *authServerv1.RegisterRequest) (*authServerv1.RegisterResponse, error) {
+	panic("not implemented")
 }
 
 func loginValidation(req *authServerv1.LoginRequest) error {
@@ -33,6 +39,6 @@ func loginValidation(req *authServerv1.LoginRequest) error {
 	return nil
 }
 
-func (s *serverAPI) Register(ctx context.Context, rr *authServerv1.RegisterRequest) (*authServerv1.RegisterResponse, error) {
-	panic("not implemented")
+func (s *serverAPI) GetConfig(ctx context.Context, in *authServerv1.GetConfigRequest) (*authServerv1.GetConfigResponse, error) {
+	return &authServerv1.GetConfigResponse{Result: "result " + in.Input}, nil
 }
