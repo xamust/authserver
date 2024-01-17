@@ -9,6 +9,7 @@ import (
 	"github.com/xamust/authserver/internal/config"
 	"github.com/xamust/authserver/internal/xlogger"
 	"github.com/xamust/authserver/pkg/authserver/v1"
+	"github.com/xamust/xvalidator"
 	"io/fs"
 	"time"
 )
@@ -21,8 +22,9 @@ type App struct {
 
 func New(log *xlogger.XLogger, conf config.GRPCConfig) *App {
 	e := echo.New()
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
+	e.HideBanner = true
+	e.Validator = xvalidator.NewXValidator()
+	e.Use(middleware.Logger(), middleware.Recover())
 	return &App{
 		log:        log,
 		echoServer: e,

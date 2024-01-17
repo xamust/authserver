@@ -2,6 +2,7 @@ package auth
 
 import (
 	"context"
+	"github.com/xamust/authserver/internal/validator"
 	authServerv1 "github.com/xamust/authserver/pkg/authserver/v1"
 	"github.com/xamust/xvalidator"
 	"google.golang.org/grpc"
@@ -30,11 +31,11 @@ func (s *serverAPI) Register(ctx context.Context, rr *authServerv1.RegisterReque
 }
 
 func loginValidation(req *authServerv1.LoginRequest) error {
-	if err := xvalidator.NewXValidator().ValidateVar(req.Email, "email"); err != nil {
-		return ValidationError("email", err)
-	}
-	if err := xvalidator.NewXValidator().ValidateVar(req.Password, "required"); err != nil {
-		return ValidationError("password", err)
+	if err := validator.NewValidator().ValidateVar(
+		[]xvalidator.InputValData{
+			{Key: "email", ValData: req.Email},
+			{Key: "custom_password", ValData: req.Password}}...); err != nil {
+		return ValidationError("login", err)
 	}
 	return nil
 }
