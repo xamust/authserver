@@ -1,4 +1,5 @@
 <h1>All in one mono</h1>
+echo, grpc, grpcgateway
 
 1. make protoserver<br>
 2. set config/config.yaml or set ./env
